@@ -1,8 +1,23 @@
-from typing import Union
+import os 
+
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-app = FastAPI()
+from dotenv import load_dotenv
+
+load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "\\.env")  # take environment variables from .env.
+
+import server.dao as dao
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.mongodb_client = dao
+    print("Connected to the MongoDB database!")
+    yield
+    print("FastApi down")
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def read_root():
