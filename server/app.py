@@ -22,3 +22,7 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/")
 def read_root():
     return {"Hello":"World"}
+
+@app.get("/films/")
+def get_films_by_year(year: int = 0):
+    return app.mongodb_client.query({"Release Year": year})

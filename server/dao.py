@@ -10,8 +10,9 @@ client = MongoClient(
                      ) 
 
 
-def query():
+def query(filter):
     db = client["sanfrancisco"]
     col = db["film_locations"]
-    print("Counting documents..")
-    print("oi:",col.count({}))
+    result = col.find(filter,{"Title": 1, "_id":0})
+    # l = list(result)
+    return list(result)
