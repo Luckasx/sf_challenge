@@ -1,5 +1,6 @@
 {
     "scripts": {
-    "client": "cd client && npm start"    
+    "client": "cd client && npm start" ,
+    "proxy": "http://localhost:8000"
   }
 }

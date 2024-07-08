@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import LeafMap from "./LeafMaps";
+import MovieSearch from './MovieSearch'
 
 function Home() {
   return (
@@ -10,9 +11,10 @@ function Home() {
           <Navbar.Brand href="#home">
             San Francisco Movie Locations Challenge
           </Navbar.Brand>
+         <MovieSearch />
         </Container>
       </Navbar>
-      <LeafMap></LeafMap>
+      <LeafMap expand="lg"></LeafMap>
     </Container>
   );
 }
