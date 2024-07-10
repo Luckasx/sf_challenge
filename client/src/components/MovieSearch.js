@@ -10,7 +10,7 @@ const AsyncExample = () => {
   const handleSearch = (query) => {
     setIsLoading(true);
 
-    fetch(`${SEARCH_URI}?year=${query}`)
+    fetch(`${SEARCH_URI}?title=${query}`)
       .then((resp) => resp.json())
       .then(({ items }) => {
         setOptions(items);

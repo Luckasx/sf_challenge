@@ -24,5 +24,5 @@ def read_root():
     return {"Hello":"World"}
 
 @app.get("/films/")
-def get_films_by_year(year: int = 0):
-    return app.mongodb_client.query({"Release Year": year})
+def get_films_by_year(title: str = ''):
+    return app.mongodb_client.query({"Title": {'$regex':f".*{title}.*"}})
