@@ -6,7 +6,7 @@ from fastapi import FastAPI
 
 from dotenv import load_dotenv
 
-load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "\\.env")  # take environment variables from .env.
+load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "/.env")  # take environment variables from .env.
 
 import server.dao as dao
 
