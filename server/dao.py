@@ -11,8 +11,8 @@ client = MongoClient(
 
 
 def query(filter):
-    db = client["sanfrancisco"]
+    db = client["sanfrancisco"]    
     col = db["film_locations"]
-    result = col.find(filter,{"Title": 1, "_id":0})
+    result = col.find(filter,{"Title": 1,"Locations":1,  "_id":0})
     # l = list(result)
     return list(result)

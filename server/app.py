@@ -25,4 +25,4 @@ def read_root():
 
 @app.get("/films/")
 def get_films_by_year(title: str = ''):
-    return app.mongodb_client.query({"Title": {'$regex':f".*{title}.*"}})
+    return { "items": app.mongodb_client.query({"Title": {'$regex':f".*{title}.*"}})}
