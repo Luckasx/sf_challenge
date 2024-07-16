@@ -4,7 +4,7 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 const SEARCH_URI = '/api/films/'
 
-const AsyncExample = () => {
+const AsyncExample = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
 
@@ -19,10 +19,6 @@ const AsyncExample = () => {
       });
   };
 
-  const handleSelect = (text, e) => {
-    console.log(text, e)
-  }
-
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
   const filterBy = () => true;
@@ -34,7 +30,7 @@ const AsyncExample = () => {
       isLoading={isLoading}
       labelKey="Title"
       minLength={3}
-      onChange={handleSelect}
+      onChange={props.onChange}
       onSearch={handleSearch}
       options={options}
       placeholder="Search for a SF movie..."
