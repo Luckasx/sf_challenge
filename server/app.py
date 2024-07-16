@@ -1,4 +1,4 @@
-import os 
+import os
 
 from contextlib import asynccontextmanager
 
@@ -6,7 +6,9 @@ from fastapi import FastAPI
 
 from dotenv import load_dotenv
 
-load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "/.env")  # take environment variables from .env.
+# take environment variables from .env.
+# print("env file", os.path.abspath(os.path.dirname(__file__)) + "/.env")
+load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "/.env")
 
 import server.dao as dao
 
@@ -19,10 +21,12 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+
 @app.get("/")
 def read_root():
-    return {"Hello":"World"}
+    return {"Hello": "World"}
+
 
 @app.get("/films/")
 def get_films_by_year(title: str = ''):
-    return { "items": app.mongodb_client.query({"Title": {'$regex':f".*{title}.*"}})}
+    return {"items": app.mongodb_client.query({"Title": {'$regex': f".*{title}.*",  "$options": "i"}})}
