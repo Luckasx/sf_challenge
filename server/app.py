@@ -1,3 +1,5 @@
+import server.coordinator as coordinator
+import server.dao as dao
 import os
 
 from contextlib import asynccontextmanager
@@ -8,13 +10,14 @@ from dotenv import load_dotenv
 
 # take environment variables from .env.
 # print("env file", os.path.abspath(os.path.dirname(__file__)) + "/.env")
-load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "/.env")
 
-import server.dao as dao
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.mongodb_client = dao
+    load_dotenv(os.path.abspath(os.path.dirname(__file__)) + "/.env")
+    app.mongodb_client = dao.MAPDao()
+    app.coordinator = coordinator.Coordinator()
     print("Connected to the MongoDB database!")
     yield
     print("FastApi down")
@@ -30,3 +33,8 @@ def read_root():
 @app.get("/films/")
 def get_films_by_year(title: str = ''):
     return {"items": app.mongodb_client.query({"Title": {'$regex': f".*{title}.*",  "$options": "i"}})}
+
+
+@app.get("/coordinates/")
+def get_address_coordinates(address: str = ''):
+    return app.coordinator.get_coordinates(address)
