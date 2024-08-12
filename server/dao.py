@@ -23,9 +23,12 @@ class MAPDao():
         col = db["film_locations"]
 
         pipeline = [{"$match": filter},
+                    {"$group": {"_id": "$Title", "count": {"$sum": 1}}},  # Check for duplicates
+                     {"$match": {"count": {"$gt": 1}}},  # Filter duplicates
                     {"$limit": 10},
                     { "$sort": { "Title": 1 } },
-                    {"$project": {"Title": 1, "_id": 0}}]
+                    {"$project": { "Title": "$_id", "_id": 0}}
+                    ]
 
         result = col.aggregate(pipeline)
 
