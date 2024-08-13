@@ -16,6 +16,19 @@ class MAPDao():
         result = col.find(filter,{"Title": 1,"Locations":1, "Coordinates": 1,  "_id":0}).sort('Title', ASCENDING)
         # l = list(result)
         return list(result)
+    
+    def update(self, filter, coordinates):
+        db = self.client["sanfrancisco"]
+        col = db["film_locations"]
+        
+        update = {"$set": {"Coordinates": coordinates}}
+        
+        result = col.update_one(filter, update)
+        
+        if result.modified_count == 1:
+            print("Document updated successfully", filter, update)
+        else:
+            print("Document not found or not updated", filter, update)
         
 
     def aggregate(self, filter, limit=10):

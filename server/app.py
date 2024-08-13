@@ -31,12 +31,12 @@ def read_root():
 
 
 @app.get("/films/")
-def get_films_by_year(title: str = ''):
+def get_films_by_title(title: str = ''):
     return {"items": app.mongodb_client.aggregate({"$and":[{"Title": {'$regex': f".*{title}.*",  "$options": "i"}},{"Locations":{ "$exists": True}}]})}
 
 
 @app.get("/coordinates/")
 def get_movie_locations(movie: str = ''):
     movie_locations = app.mongodb_client.find({"$and":[{"Title": f"{movie}"},{"Locations":{ "$exists": True}}]})
-    data = app.coordinator.get_coordinates(movie_locations)
+    data = app.coordinator.get_coordinates(movie_locations, app.mongodb_client)
     return { "items" : data}
