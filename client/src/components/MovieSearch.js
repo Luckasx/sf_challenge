@@ -2,16 +2,17 @@
 import { useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
+
 const SEARCH_URI = '/api/films/'
 
 const AsyncExample = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
     setIsLoading(true);
 
-    fetch(`${SEARCH_URI}?title=${query}`)
+    await fetch(`${SEARCH_URI}?title=${query}`)
       .then((resp) => resp.json())
       .then(({ items }) => {
         setOptions(items);
@@ -39,7 +40,10 @@ const AsyncExample = (props) => {
           <span>{option.Title}</span>
         </>
       )}
+
     />
+
+
   );
 };
 
