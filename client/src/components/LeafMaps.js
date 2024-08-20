@@ -27,10 +27,10 @@ function MapChild(props) {
 
 function LeafMap(props) {
 
-  const position = [51.505, -0.09];
+  const position = [37.78, -122.45];
 
   return (
-    <MapContainer center={position} zoom={12} scrollWheelZoom={false}>
+    <MapContainer center={position} zoom={12} scrollWheelZoom={true}>
       <Marker position={position}>
         <Popup>Hello World</Popup>
       </Marker>
