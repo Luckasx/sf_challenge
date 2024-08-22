@@ -6,15 +6,17 @@ import { useMap } from 'react-leaflet';
 
 import { useEffect } from 'react';
 
-
-
 function MapChild(props) {
+
   const map = useMap()
-  
+
   // Initialisiere den Zustand mit den initialen Props
   useEffect(() => {
     const updateMap = () => {
       console.log(props.location, map)
+      map.setView(props.location, map.getZoom(), {
+
+      })
     }
 
     updateMap();
@@ -24,6 +26,7 @@ function MapChild(props) {
 }
 
 function LeafMap(props) {
+
 
   const position = [37.78, -122.45];
 

@@ -23,6 +23,8 @@ function Home() {
 
   const colMaps = locations.length > 0 ? 9 : 12;
 
+  const [location, setLocation] = useState({lat: 37.78, lng: -122.45});
+
   const COORDINATES_URI = '/api/coordinates/'
 
   const handleSelect = async (data) => {
@@ -37,12 +39,13 @@ function Home() {
       const d = await resp.json();
 
       if (d.items.length === 0) {
-
         setLocations([])
         setMovieTitle(false)
         setShow(true);
         return true;  
       }
+
+      setLocation({lat:d.items[0].Coordinates.split(",")[0], lng:d.items[0].Coordinates.split(",")[1]})        
 
       setLocations(d.items)
 
@@ -88,7 +91,7 @@ function Home() {
       </Row>
       <Row>
         <Col lg={colMaps}>
-          <LeafMap expand="lg"></LeafMap>
+          <LeafMap expand="lg" location={location}></LeafMap>
         </Col>
         <Col lg={3}>
           <LocationsCollapse open={locations.length > 0} locations={locations} movie={movieTitle}></LocationsCollapse>
