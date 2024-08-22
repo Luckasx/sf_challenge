@@ -4,8 +4,6 @@ import Card from 'react-bootstrap/Card';
 
 function LocationsCollapse(props) {
 
-    console.log(props)
-
     return (
         <Collapse in={props.open} dimension="width">
             <Container>

@@ -10,9 +10,7 @@ import { useEffect } from 'react';
 
 function MapChild(props) {
   const map = useMap()
-  // console.log('map center:', map.getCenter())
-
-
+  
   // Initialisiere den Zustand mit den initialen Props
   useEffect(() => {
     const updateMap = () => {

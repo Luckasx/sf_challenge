@@ -29,8 +29,6 @@ function Home() {
 
     setLoading(true)
 
-    console.log("Home HandleSelect", data);
-
     if (data[0]?.Title) {
       let resp = await fetch(`${COORDINATES_URI}?movie=${data[0].Title}`);
 
@@ -38,14 +36,12 @@ function Home() {
 
       const d = await resp.json();
 
-      console.log(d)
-
       if (d.items.length === 0) {
 
         setLocations([])
         setMovieTitle(false)
         setShow(true);
-        return;
+        return true;  
       }
 
       setLocations(d.items)
@@ -54,6 +50,7 @@ function Home() {
     }
 
     setLoading(false);
+    return true;
 
   }
 
