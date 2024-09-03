@@ -4,7 +4,7 @@ import {
 
 import { useMap } from 'react-leaflet';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function MapChild(props) {
 
@@ -15,7 +15,6 @@ function MapChild(props) {
     const updateMap = () => {
       console.log(props.location, map)
       map.setView(props.location, map.getZoom(), {
-
       })
     }
 
@@ -27,14 +26,24 @@ function MapChild(props) {
 
 function LeafMap(props) {
 
+  const [position, setPosition] = useState([37.78, -122.45]);
+  
+  useEffect(() => {
+    const updateMap = () => {
+      setPosition([props.location.lat, props.location.lng])
+    }
 
-  const position = [37.78, -122.45];
+    updateMap();
+  }, [props.location]);
+
+
+
 
   return (
     <MapContainer center={position} zoom={12} scrollWheelZoom={true}>
-      <Marker position={position}>
-        <Popup>Hello World</Popup>
-      </Marker>
+      { props.locationName !== '' && <Marker position={position}>
+        <Popup>{props.locationName}</Popup>
+      </Marker>}
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -9,7 +9,7 @@ import LocationsCollapse from "./LocationsCollapse";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Modal from 'react-bootstrap/Modal';
-import {SquareLoader} from 'react-spinners';
+import { SquareLoader } from 'react-spinners';
 
 function Home() {
 
@@ -23,7 +23,8 @@ function Home() {
 
   const colMaps = locations.length > 0 ? 9 : 12;
 
-  const [location, setLocation] = useState({lat: 37.78, lng: -122.45});
+  const [location, setLocation] = useState({ lat: 37.78, lng: -122.45 });
+  const [locationName, setLocationName] = useState('');
 
   const COORDINATES_URI = '/api/coordinates/'
 
@@ -42,12 +43,14 @@ function Home() {
         setLocations([])
         setMovieTitle(false)
         setShow(true);
-        return true;  
+        return true;
       }
 
-      setLocation({lat:d.items[0].Coordinates.split(",")[0], lng:d.items[0].Coordinates.split(",")[1]})        
+      setLocation({ lat: d.items[0].Coordinates.split(",")[0], lng: d.items[0].Coordinates.split(",")[1] })
 
       setLocations(d.items)
+
+      setLocationName(d.items[0].Locations)
 
       setMovieTitle(data[0] === undefined ? "" : data[0].Title)
     }
@@ -84,14 +87,14 @@ function Home() {
             <MovieSearch location="" onChange={handleSelect} />
 
             <Modal show={loading} >
-              <Modal.Body>Searching...<SquareLoader /></Modal.Body>              
+              <Modal.Body>Searching...<SquareLoader /></Modal.Body>
             </Modal>
           </Container>
         </Navbar>
       </Row>
       <Row>
         <Col lg={colMaps}>
-          <LeafMap expand="lg" location={location}></LeafMap>
+          <LeafMap expand="lg" location={location} locationName={locationName}></LeafMap>
         </Col>
         <Col lg={3}>
           <LocationsCollapse open={locations.length > 0} locations={locations} movie={movieTitle}></LocationsCollapse>
